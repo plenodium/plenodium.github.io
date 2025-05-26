@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Plenodium UnderWater 3D Scene Reconstruction with Plenoptic Medium Representation">
+  <meta name="keywords" content="Plenodium, 3DGS, Underwater">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plenodium: UnderWater 3D Scene Reconstruction with Plenoptic Medium Representation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+
+  <link rel="icon" href="./static/images/AquaticGS_icon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/video_comparison.js"></script>
+</head>
+
+<body>
+
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <!-- <img src="./static/images/AquaticGS_icon.png" alt="Icon" style="vertical-align: middle; width: 100px; height: 100px; margin-right: -10px;"> -->
+              Plenodium: UnderWater 3D Scene Reconstruction with Plenoptic Medium Representation
+            </h1>
+            <!-- Add Authors Information -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://cgwu1999.github.io/">Changguang Wu</a>,</span>
+              <!-- <a href="#">ChangGuang Wu</a>, -->
+              </span>
+              <span class="author-block">
+                <a href="https://imag-njust.net/people/user/dongjiangxin/">Jiangxin Dong</a>,</span>
+              <!-- <a href="#">Junzhe Lu</a>, -->
+              </span>
+              <span class="author-block">
+                <a href="https://chengjian-li.github.io/">Chengjian Li</a>,</span>
+              </span>
+              <!-- <span class="author-block">
+              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+            </span> -->
+              <span class="author-block">
+                <a href="https://imag-njust.net/people/user/tangjinhui">Jinhui Tang</a>
+              </span>
+            </div>
+
+            <!-- Add Institution Information -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Nanjing University of Science and Technology</span>
+              <!-- <span class="author-block"><sup>1</sup>Beihang University</span> -->
+              <!-- <span class="author-block"><sup>2</sup>Google Research</span> -->
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv Link -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Supplementary Material</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/cgwu1999/plenodium"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Dataset Link. -->
+                <span class="link-block">
+                  <a href="https://figshare.com/s/78307bef0248d4577880 "
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="far fa-images"></i>
+                    </span>
+                    <span>Data</span>
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container is-max-desktop">
+      <!-- Display two side-by-side videos for teaser -->
+      <div class="video-row">
+        <div class="video-container">
+          <!-- <h4 class="video-title">3DGS vs Aquatic-GS</h4> -->
+          <h4 class="video-title" style="font-size: 1.3rem;">SeaThru-NeRF vs Plenodium</h4>
+          <video class="video" id="left-teaser-video" loop playsinline autoplay muted
+            src="static/videos/video.mp4" onplay="resizeAndPlay(this)"></video>
+          <canvas height=0 class="videoMerge" id="left-teaser-videoMerge"></canvas>
+        </div>
+
+      </div>
+
+      <!-- Abstract -->
+      <div class="columns is-centered has-text-centered" style="margin-top: 40px;">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We present <i>Plenodium</i> (<i>plenoptic medium</i>), an effective and efficient 3D representation
+              framework capable of
+              jointly modeling both objects and participating media. In contrast to existing medium representations that
+              rely solely
+              on view-dependent modeling, our novel plenoptic medium representation incorporates both directional and
+              positional
+              information through spherical harmonics encoding, enabling highly accurate underwater scene
+              reconstruction. To address
+              the initialization challenge in degraded underwater environments, we propose the pseudo-depth Gaussian
+              complementation
+              to augment COLMAP-derived point clouds with robust depth priors. In addition, a depth ranking regularized
+              loss is
+              developed to optimize the geometry of the scene and improve the ordinal consistency of the depth maps.
+              Extensive
+              experi-ments on real-world underwater datasets demonstrate that our method achieves significant
+              improvements in 3D
+              reconstruction. Furthermore, we conduct a simulated dataset with ground truth and the controllable
+              scattering medium to
+              demonstrate the restoration capability of our method in underwater scenarios.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Method -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Main Title -->
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Method</h2>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-one">
+          <h3 class="title is-4">The overview of Plenodium</h3>
+          <figure class="image">
+            <img src="static/images/overview.png" alt="Aquatic-GS Pipeline">
+          </figure>
+          <p>
+            We first employ the pseudo-depth Gaussian complementation to enrich the primitives initialized by COLMAP.
+            Then we utilize the plenoptic medium representation to estimate the medium parameter and render the
+            underwater images.
+            Our network is optimized with the loss function, including a new depth ranking regularized loss.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!--Results-->
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <h2 class="title is-3 has-text-centered">Results</h2>
+    </div>
+  </div>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-4">Results on SeaThru-NeRF Dataset</h2>
+      <p>
+        Below, you can choose different scenes for comparison.
+        On the left, you can see the comparison between WaterSplatting and Plenodium in underwater scene reconstruction.
+        On the right, you can see the comparison between WaterSplatting and Plenodium in underwater scene restoration.
+      </p>
+      <div class="tabs-widget" style="margin-top: 20px;">
+        <div class="tabs is-centered is-toggle is-toggle-rounded is-small">
+          <ul class="is-marginless" id="tabs">
+            <!-- 场景选择 -->
+            <li id="tab-Curacao"><a onclick="changeScene('Curacao')">Curacao</a></li>
+            <li id="tab-Japan"><a onclick="changeScene('Japan')">JapaneseGradens Red Sea</a></li>
+            <li id="tab-Panama"><a onclick="changeScene('Panama')">Panama</a></li>
+            <li id="tab-IUI3"><a onclick="changeScene('IUI3')">IUI3 Read Sea</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Display two side-by-side videos for restoration -->
+      <div class="video-row">
+        <div class="video-container">
+          <h4 class="video-title" style="font-size: 1.3rem;">WaterSplatting vs Plenodium</h4>
+          <video class="video" id="left-video" loop playsinline autoplay muted src="static/videos/Curasao.mp4"
+            onplay="resizeAndPlay(this)"></video>
+          <canvas height=0 class="videoMerge" id="left-videoMerge"></canvas>
+        </div>
+        <div class="video-container">
+          <h4 class="video-title" style="font-size: 1.3rem;">WaterSplatting vs Plenodium</h4>
+          <video class="video" id="right-video" loop playsinline autoplay muted src="static/videos/Curasao2.mp4"
+            onplay="resizeAndPlay(this)"></video>
+          <canvas height=0 class="videoMerge" id="right-videoMerge"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 场景视频路径配置 - Restoration
+    const seathruVideoPaths = {
+      'Curacao': { 'left': 'static/videos/Curasao.mp4', 'right': 'static/videos/Curasao_.mp4' },
+      'IUI3': { 'left': 'static/videos/IUI3-RedSea.mp4', 'right': 'static/videos/IUI3-RedSea_.mp4' },
+      'Japan': { 'left': 'static/videos/Japan.mp4', 'right': 'static/videos/Japan_.mp4' },
+      'Panama': { 'left': 'static/videos/Panama.mp4', 'right': 'static/videos/Panama_.mp4' },
+
+    };
+
+    // 场景切换功能 - Restoration
+    function changeScene(scene) {
+      const leftVideo = document.getElementById('left-video');
+      const rightVideo = document.getElementById('right-video');
+
+      // 更新视频源
+      leftVideo.src = seathruVideoPaths[scene].left;
+      rightVideo.src = seathruVideoPaths[scene].right;
+
+      // 重新加载视频
+      leftVideo.load();
+      rightVideo.load();
+
+      // 更新标签样式
+      // 获取所有的标签项
+      const tabs = document.querySelectorAll('#tabs li');
+      // 移除所有标签的 is-active 类
+      tabs.forEach(tab => {
+        tab.classList.remove('is-active');
+      });
+      // 为当前选中的标签添加 is-active 类
+      const activeTab = document.getElementById('tab-' + scene);
+      if (activeTab) {
+        activeTab.classList.add('is-active');
+      }
+    }
+
+    // 页面加载后，默认选中第一个场景的标签
+    document.addEventListener('DOMContentLoaded', () => {
+      changeScene('Curasao'); // 设置默认场景
+    });
+  </script>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-4">Results on Our Simulated Dataset</h2>
+      <p>
+        Below, you can choose different degradation intensity for comparison.
+        On the left, you can see the comparison between WaterSplatting and Plenodium in <b>Fog</b> scene restoration.
+        On the right, you can see the comparison between WaterSplatting and Plenodium in <b>Water</b> scene restoration.
+      </p>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="tabs-widget" style="margin-top: 20px;">
+            <div class="tabs is-centered is-toggle is-toggle-rounded is-small">
+              <ul class="is-marginless" id="scene-tabs-fog">
+                <li id="tab-Fog-Easy"><a onclick="changeFogScene('Fog-Easy')">Easy</a></li>
+                <li id="tab-Fog-Medium"><a onclick="changeFogScene('Fog-Medium')">Medium</a></li>
+                <li id="tab-Fog-Hard"><a onclick="changeFogScene('Fog-Hard')">Hard</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Display two side-by-side videos -->
+          <div class="video-row">
+            <div class="video-container">
+              <h4 class="video-title" style="font-size: 1.3rem;">Beach</h4>
+              <video class="video" id="fog-left-video" loop playsinline autoplay muted
+                src="static/videos/beach_fog_easy.mp4" onplay="resizeAndPlay(this)"></video>
+              <canvas height=0 class="videoMerge" id="fog-left-videoMerge"></canvas>
+            </div>
+            <div class="video-container">
+              <h4 class="video-title" style="font-size: 1.3rem;">Street</h4>
+              <video class="video" id="fog-right-video" loop playsinline autoplay muted
+                src="static/videos/street_fog_easy.mp4" onplay="resizeAndPlay(this)"></video>
+              <canvas height=0 class="videoMerge" id="fog-right-videoMerge"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="tabs-widget" style="margin-top: 20px;">
+            <div class="tabs is-centered is-toggle is-toggle-rounded is-small">
+              <ul class="is-marginless" id="scene-tabs-water">
+                <li id="tab-Water-Easy"><a onclick="changeWaterScene('Water-Easy')">Easy</a></li>
+                <li id="tab-Water-Medium"><a onclick="changeWaterScene('Water-Medium')">Medium</a></li>
+                <li id="tab-Water-Hard"><a onclick="changeWaterScene('Water-Hard')">Hard</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Display two side-by-side videos -->
+          <div class="video-row">
+            <div class="video-container">
+              <h4 class="video-title" style="font-size: 1.3rem;">Beach</h4>
+              <video class="video" id="water-left-video" loop playsinline autoplay muted
+                src="static/videos/beach_water_easy.mp4" onplay="resizeAndPlay(this)"></video>
+              <canvas height=0 class="videoMerge" id="water-left-videoMerge"></canvas>
+            </div>
+            <div class="video-container">
+              <h4 class="video-title" style="font-size: 1.3rem;">Street</h4>
+              <video class="video" id="water-right-video" loop playsinline autoplay muted
+                src="static/videos/street_water_easy.mp4" onplay="resizeAndPlay(this)"></video>
+              <canvas height=0 class="videoMerge" id="water-right-videoMerge"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    // 场景视频路径配置
+    const videoFogPaths = {
+      'Fog-Easy': { 'left': 'static/videos/beach_fog_easy.mp4', 'right': 'static/videos/street_fog_easy.mp4' },
+      'Fog-Medium': { 'left': 'static/videos/beach_fog_medium.mp4', 'right': 'static/videos/street_fog_medium.mp4' },
+      'Fog-Hard': { 'left': 'static/videos/beach_fog_hard.mp4', 'right': 'static/videos/street_fog_hard.mp4' },
+    };
+
+    const videoWaterPaths = {
+      'Water-Easy': { 'left': 'static/videos/beach_water_easy.mp4', 'right': 'static/videos/street_water_easy.mp4' },
+      'Water-Medium': { 'left': 'static/videos/beach_water_medium.mp4', 'right': 'static/videos/street_water_medium.mp4' },
+      'Water-Hard': { 'left': 'static/videos/beach_water_hard.mp4', 'right': 'static/videos/street_water_hard.mp4' },
+    };
+
+    // Fog场景切换功能
+    function changeFogScene(scene) {
+      const leftVideo = document.getElementById('fog-left-video');
+      const rightVideo = document.getElementById('fog-right-video');
+
+      // 更新视频源
+      leftVideo.src = videoFogPaths[scene].left;
+      rightVideo.src = videoFogPaths[scene].right;
+
+      // 重新加载视频
+      leftVideo.load();
+      rightVideo.load();
+
+      // 更新标签样式
+      // 获取所有的标签项
+      const tabs = document.querySelectorAll('#scene-tabs-fog li');
+      // 移除所有标签的 is-active 类
+      tabs.forEach(tab => {
+        tab.classList.remove('is-active');
+      });
+      // 为当前选中的标签添加 is-active 类
+      const activeTab = document.getElementById('tab-' + scene);
+      if (activeTab) {
+        activeTab.classList.add('is-active');
+      }
+    }
+
+    // Water场景切换功能
+    function changeWaterScene(scene) {
+      const leftVideo = document.getElementById('water-left-video');
+      const rightVideo = document.getElementById('water-right-video');
+
+      // 更新视频源
+      leftVideo.src = videoWaterPaths[scene].left;
+      rightVideo.src = videoWaterPaths[scene].right;
+
+      // 重新加载视频
+      leftVideo.load();
+      rightVideo.load();
+
+      // 更新标签样式
+      // 获取所有的标签项
+      const tabs = document.querySelectorAll('#scene-tabs-water li');
+      // 移除所有标签的 is-active 类
+      tabs.forEach(tab => {
+        tab.classList.remove('is-active');
+      });
+      // 为当前选中的标签添加 is-active 类
+      const activeTab = document.getElementById('tab-' + scene);
+      if (activeTab) {
+        activeTab.classList.add('is-active');
+      }
+    }
+
+    // 页面加载后，默认选中第一个场景的标签
+    document.addEventListener('DOMContentLoaded', () => {
+      // 设置默认选中的标签
+      document.getElementById('tab-Fog-Easy').classList.add('is-active');
+      document.getElementById('tab-Water-Easy').classList.add('is-active');
+
+      // 初始化两种场景
+      changeFogScene('Fog-Easy');
+      changeWaterScene('Water-Easy');
+    });
+  </script>
+
+
+
+
+
+
+  <style>
+    .video-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .video-container {
+      flex: 1;
+      margin: 0 10px;
+      text-align: center;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+    }
+
+    .video-container canvas {
+      width: 100%;
+      max-width: 500px;
+      /* 您可以根据需要调整最大宽度 */
+      height: auto;
+    }
+  </style>
+
+
+  <!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{liu2024aquatic,
+  author    = {Shaohua Liu, Junzhe Lu, Zuoya Gu, Jiajun Li, and Yue Deng},
+  title     = {Aquatic-GS: A Hybrid 3D Representation for Underwater Scenes},
+  journal   = {arXiv preprint arXiv:2411.00239},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section> -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+              Website template credit to <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
