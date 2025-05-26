@@ -1,6 +1,6 @@
-# AquaticGS
+# Plenodium
 
-This is the repository that contains source code for the [AquaticGS website](https://AquaticGS.github.io).
+This is the repository that contains source code for the [Plenodium website](https://Plenodium.github.io).
 
 
 # Website License
