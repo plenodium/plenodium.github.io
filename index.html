@@ -227,9 +227,9 @@
         <div class="tabs is-centered is-toggle is-toggle-rounded is-small">
           <ul class="is-marginless" id="tabs">
             <!-- 场景选择 -->
-            <li id="tab-Curacao"><a onclick="changeScene('Curacao')">Curacao</a></li>
             <li id="tab-Japan"><a onclick="changeScene('Japan')">JapaneseGradens Red Sea</a></li>
             <li id="tab-Panama"><a onclick="changeScene('Panama')">Panama</a></li>
+            <li id="tab-Curacao"><a onclick="changeScene('Curacao')">Curacao</a></li>
             <li id="tab-IUI3"><a onclick="changeScene('IUI3')">IUI3 Read Sea</a></li>
           </ul>
         </div>
@@ -239,13 +239,13 @@
       <div class="video-row">
         <div class="video-container">
           <h4 class="video-title" style="font-size: 1.3rem;">WaterSplatting vs Plenodium</h4>
-          <video class="video" id="left-video" loop playsinline autoplay muted src="static/videos/Curasao.mp4"
+          <video class="video" id="left-video" loop playsinline autoplay muted src="static/videos/Japan.mp4"
             onplay="resizeAndPlay(this)"></video>
           <canvas height=0 class="videoMerge" id="left-videoMerge"></canvas>
         </div>
         <div class="video-container">
           <h4 class="video-title" style="font-size: 1.3rem;">WaterSplatting vs Plenodium</h4>
-          <video class="video" id="right-video" loop playsinline autoplay muted src="static/videos/Curasao_.mp4"
+          <video class="video" id="right-video" loop playsinline autoplay muted src="static/videos/Japan_.mp4"
             onplay="resizeAndPlay(this)"></video>
           <canvas height=0 class="videoMerge" id="right-videoMerge"></canvas>
         </div>
@@ -292,7 +292,7 @@
 
     // 页面加载后，默认选中第一个场景的标签
     document.addEventListener('DOMContentLoaded', () => {
-      changeScene('Curacao'); // 设置默认场景
+      changeScene('Japan'); // 设置默认场景
     });
   </script>
 
